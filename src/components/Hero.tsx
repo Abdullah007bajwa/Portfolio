@@ -14,7 +14,8 @@ useGLTF.preload("/comic_drone.glb");
 
 // NobleModel: loads and renders the GLTF scene
 const NobleModel = (props: GroupProps) => {
-  const { scene } = useGLTF("/comic_drone.glb") as unknown as { scene: Scene };
+  useGLTF.preload(import.meta.env.BASE_URL + "comic_drone.glb");
+  const { scene } = useGLTF(import.meta.env.BASE_URL + "comic_drone.glb") as unknown as { scene: Scene };
   const ref = useRef<Group>(null);
 
   useFrame((_, delta) => {
