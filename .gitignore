@@ -17,7 +17,6 @@ dist-ssr/
 *.tsbuildinfo
 
 # Public build artifacts
-public/*.glb
 public/*.pdf
 public/*.svg
 public/*.txt
