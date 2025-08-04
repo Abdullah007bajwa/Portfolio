@@ -12,7 +12,7 @@ import elderlyImage from '@/assets/project-elderly.png';
 import llmImage from '@/assets/project-llm.png';
 
 const Projects = () => {
-  const [filter, setFilter] = useState('all');
+  const [filters, setFilters] = useState<string[]>([]);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -146,9 +146,24 @@ const Projects = () => {
   ];
   const [showAll, setShowAll] = useState(false);
   const categories = ['all', 'ai', 'mobile', 'web'];
-  const filteredProjects = filter === 'all' 
+
+  // Toggle category filter function
+  const toggleCategory = (category: string) => {
+    if (category === 'all') {
+      setFilters([]);
+    } else {
+      setFilters(prev => 
+        prev.includes(category) 
+          ? prev.filter(cat => cat !== category)
+          : [...prev, category]
+      );
+    }
+  };
+
+  // Filter projects based on selected categories
+  const filteredProjects = filters.length === 0 
     ? projects 
-    : projects.filter(project => project.category === filter);
+    : projects.filter(project => filters.includes(project.category));
 
   const visibleProjects = showAll 
     ? filteredProjects 
@@ -176,20 +191,26 @@ const Projects = () => {
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={filter === category ? 'default' : 'outline'}
-              onClick={() => setFilter(category)}
-              className={`capitalize px-6 py-2 transition-all ${
-                filter === category 
-                  ? 'bg-gradient-primary text-white shadow-primary' 
-                  : 'hover:bg-primary/10 hover:text-primary'
-              }`}
-            >
-              {category === 'all' ? 'All Projects' : category}
-            </Button>
-          ))}
+          {categories.map((category) => {
+            const isActive = category === 'all' 
+              ? filters.length === 0 
+              : filters.includes(category);
+            
+            return (
+              <Button
+                key={category}
+                variant={isActive ? 'default' : 'outline'}
+                onClick={() => toggleCategory(category)}
+                className={`capitalize px-6 py-2 transition-all ${
+                  isActive 
+                    ? 'bg-gradient-primary text-white shadow-primary' 
+                    : 'hover:bg-primary/10 hover:text-primary'
+                }`}
+              >
+                {category === 'all' ? 'All Projects' : category}
+              </Button>
+            );
+          })}
         </div>
 
         {/* Projects Grid */}

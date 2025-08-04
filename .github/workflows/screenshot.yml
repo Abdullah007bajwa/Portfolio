@@ -1,0 +1,137 @@
+name: Auto Screenshot Projects
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/components/Projects.tsx'
+      - 'package.json'
+  workflow_dispatch: # Manual trigger
+  schedule:
+    # Run weekly to keep screenshots fresh
+    - cron: '0 2 * * 0' # Every Sunday at 2 AM UTC
+
+jobs:
+  capture-screenshots:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps chromium
+
+    - name: Create screenshot script
+      run: |
+        cat > screenshot.js << 'EOF'
+        const { chromium } = require('playwright');
+        const fs = require('fs');
+        const path = require('path');
+
+        const projects = [
+          {
+            name: 'cuddly-fortnight',
+            url: 'https://cuddly-fortnight-o8t6.onrender.com/',
+            filename: 'project-cuddly-fortnight.jpg'
+          },
+          {
+            name: 'portfolio',
+            url: 'https://abdullah007bajwa.vercel.app',
+            filename: 'project-portfolio.jpg'
+          },
+          {
+            name: 'mintart',
+            url: 'https://mint-q0ue6twkq-abdullah-bajwas-projects-db31a83a.vercel.app/',
+            filename: 'project-mintart.jpg'
+          }
+        ];
+
+        async function captureScreenshots() {
+          const browser = await chromium.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+          });
+
+          for (const project of projects) {
+            try {
+              console.log(`Capturing screenshot for ${project.name}...`);
+              
+              const page = await browser.newPage();
+              
+              // Set viewport for consistent screenshots
+              await page.setViewportSize({ width: 1200, height: 800 });
+              
+              // Navigate to the project URL
+              await page.goto(project.url, { 
+                waitUntil: 'networkidle',
+                timeout: 30000 
+              });
+
+              // Wait a bit for any animations to complete
+              await page.waitForTimeout(2000);
+
+              // Take screenshot
+              const screenshotPath = path.join('src/assets', project.filename);
+              await page.screenshot({ 
+                path: screenshotPath,
+                quality: 80,
+                type: 'jpeg'
+              });
+
+              console.log(`✅ Screenshot saved: ${screenshotPath}`);
+              await page.close();
+
+            } catch (error) {
+              console.error(`❌ Failed to capture ${project.name}:`, error.message);
+            }
+          }
+
+          await browser.close();
+        }
+
+        captureScreenshots().catch(console.error);
+        EOF
+
+    - name: Capture screenshots
+      run: node screenshot.js
+
+    - name: Check for changes
+      id: changes
+      run: |
+        if git diff --quiet; then
+          echo "no_changes=true" >> $GITHUB_OUTPUT
+        else
+          echo "no_changes=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Commit and push changes
+      if: steps.changes.outputs.no_changes == 'false'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add src/assets/project-*.jpg
+        git commit -m "📸 Auto-update project screenshots [skip ci]"
+        git push
+
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '🔄 Project screenshots have been automatically updated!'
+          }) 
