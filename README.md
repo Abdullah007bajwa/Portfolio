@@ -5,7 +5,7 @@ A modern, responsive developer portfolio showcasing the work, skills, and experi
 ---
 
 ## 🚀 Live Demo
-[View the live site →](https://abdullah007bajwa.vercel.app)
+[View the live site →](https://abdullah007bajwa.github.io/Portfolio/)
 
 ## 🎯 Project Highlights
 
