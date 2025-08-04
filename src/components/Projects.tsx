@@ -4,12 +4,16 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github, Eye, Info } from 'lucide-react';
 import ProjectModal from '@/components/ProjectModal';
-
+import mintImage from '@/assets/mintart.png';
 // Import project images
 import workoutImage from '@/assets/project-workout.png';
 import stockImage from '@/assets/project-stock.png';
 import elderlyImage from '@/assets/project-elderly.png';
 import llmImage from '@/assets/project-llm.png';
+import cuddlyImage from '@/assets/cuddly.png';
+import portfolioImage from '@/assets/portfolio.png';
+import recipeImage from '@/assets/recipes .jpg';
+import inceptraImage from '@/assets/inceptra.png';
 
 const Projects = () => {
   const [filters, setFilters] = useState<string[]>([]);
@@ -21,9 +25,9 @@ const Projects = () => {
       id: 1,
       title: 'Cuddly Fortnight – AI Career Assistant',
       description: 'An AI-powered career planning assistant that recommends tailored career paths, courses, and skills based on your goals.',
-      image: stockImage, // You can replace this with a real screenshot later
+      image: cuddlyImage,
       tags: ['React', 'LLM', 'AI Agent', 'Express.js'],
-      category: 'ai',
+      categories: ['ai', 'web'],
       featured: false,
       links: {
         github: 'https://github.com/Abdullah007bajwa/cuddly-fortnight',
@@ -41,34 +45,31 @@ const Projects = () => {
         'Deployed full-stack app with React + Express + LLMs'
       ]
     },
-
     {
       id: 2,
-      title: 'Stock Pattern Predictor',
-      description: 'Predictive model using LSTM neural networks for stock market trend analysis and pattern recognition with high accuracy forecasting.',
-      image: stockImage,
-      tags: ['LSTM', 'Time Series', 'Financial Analysis', 'PyTorch'],
-      category: 'ai',
+      title: 'Inceptra: Autonomous Agent Infrastructure',
+      description: 'Inceptra is an open-source TypeScript framework that provides an event-driven agent infrastructure for building modular, pluggable AI agents and workflows.',
+      image: inceptraImage,
+      tags: ['Agents', 'LangGraph', 'Event-Driven', 'TS Framework'],
+      categories: ['ai', 'framework'],
       featured: true,
       links: {
-        github: 'https://github.com/Abdullah007bajwa/Advanced-Stock-Pattern-Prediction-using-LSTM-with-Attention-Mechanism-in-TensorFlow',
-        demo: '#'
+        github: 'https://github.com/Abdullah007bajwa/inceptra',
+        demo: 'https://github.com/Abdullah007bajwa/inceptra'
       },
-      fullDescription: 'A sophisticated financial prediction system using LSTM neural networks to analyze historical stock data and predict future trends. The model incorporates multiple technical indicators and sentiment analysis for enhanced accuracy.',
-      challenges: ['Handling market volatility', 'Feature engineering for time series', 'Preventing overfitting'],
-      outcomes: ['Achieved 78% prediction accuracy', 'Reduced risk exposure by 35%', 'Generated consistent returns']
+      fullDescription: 'Inceptra is an infrastructure framework for building agent-based systems with modular workflows, plug-and-play tools, and fine-grained state and event handling powered by LangGraph. Great for autonomous AI, automation, and orchestrated ML pipelines.'
     },
     {
       id: 3,
       title: 'Personal Portfolio',
       description: 'Modern portfolio built using Next.js, Tailwind CSS, and Shadcn showcasing projects, experience, and contact.',
-      image: llmImage, // Replace with actual screenshot of the portfolio later
+      image: portfolioImage,
       tags: ['Next.js', 'Tailwind CSS', 'Shadcn', 'TypeScript'],
-      category: 'web',
+      categories: ['web'],
       featured: false,
       links: {
         github: 'https://github.com/Abdullah007bajwa/Portfolio-',
-        demo: 'https://abdullah007bajwa.vercel.app' // or your live link
+        demo: 'https://abdullah007bajwa.vercel.app'
       },
       fullDescription: 'This portfolio is a clean, fast, and responsive website showcasing my skills, experience, and projects. Built with a strong focus on performance, accessibility, and developer experience.',
       challenges: ['Implementing dark mode toggle', 'Building reusable UI components', 'Deploying dynamic sections'],
@@ -80,7 +81,7 @@ const Projects = () => {
       description: 'Large language model with millions of parameters designed for advanced text generation and natural language processing tasks.',
       image: llmImage,
       tags: ['NLP', 'Transformers', 'LLM', 'Text Generation'],
-      category: 'ai',
+      categories: ['ai'],
       featured: true,
       links: {
         github: 'https://github.com/Abdullah007bajwa/Million-Parameter-LLM',
@@ -91,9 +92,9 @@ const Projects = () => {
       id: 5,
       title: 'MintArt Platform',
       description: 'Flutter-based creative platform for AI-powered image generation and digital art creation with modern UI/UX design.',
-      image: workoutImage, // Placeholder - would need actual image
+      image: mintImage,
       tags: ['Flutter', 'AI Art', 'Image Generation', 'Creative'],
-      category: 'mobile',
+      categories: ['mobile', 'ai'],
       featured: false,
       links: {
         github: 'https://github.com/Abdullah007bajwa/MintArt',
@@ -104,23 +105,22 @@ const Projects = () => {
       id: 6,
       title: 'Recipe Management System',
       description: 'Modern web application for browsing, managing, and sharing recipes with smart categorization and search functionality.',
-      image: stockImage, // Placeholder - would need actual image
+      image: recipeImage,
       tags: ['Web App', 'React', 'Database', 'UI/UX'],
-      category: 'web',
+      categories: ['web'],
       featured: false,
       links: {
         github: '#',
         demo: '#'
       }
     },
-
     {
       id: 7,
       title: 'Elderly Companion App',
       description: 'Flutter-based mobile application for senior care featuring AI companionship, health monitoring, and drone assistance integration.',
       image: elderlyImage,
       tags: ['Flutter', 'Mobile', 'Healthcare', 'IoT'],
-      category: 'mobile',
+      categories: ['mobile', 'ai'],
       featured: false,
       links: {
         github: 'https://github.com/Abdullah007bajwa/Elderly_Care_Companion',
@@ -133,7 +133,7 @@ const Projects = () => {
       description: 'AI-driven exercise video classification using deep learning to automatically detect and categorize different workout movements and exercises.',
       image: workoutImage,
       tags: ['Computer Vision', 'Deep Learning', 'TensorFlow', 'OpenCV'],
-      category: 'ai',
+      categories: ['ai'],
       featured: true,
       links: {
         github: 'https://github.com/Abdullah007bajwa/WorkoutVideoAnalyzer',
@@ -143,32 +143,49 @@ const Projects = () => {
       challenges: ['Real-time processing requirements', 'Handling diverse lighting conditions', 'Accurate pose estimation'],
       outcomes: ['95% accuracy in exercise classification', 'Real-time processing at 30fps', 'Reduced training supervision by 60%']
     },
+    {
+      id: 9,
+      title: 'Stock Pattern Predictor',
+      description: 'Predictive model using LSTM neural networks for stock market trend analysis and pattern recognition with high accuracy forecasting.',
+      image: stockImage,
+      tags: ['LSTM', 'Time Series', 'Financial Analysis', 'PyTorch'],
+      categories: ['ai'],
+      featured: true,
+      links: {
+        github: 'https://github.com/Abdullah007bajwa/Advanced-Stock-Pattern-Prediction-using-LSTM-with-Attention-Mechanism-in-TensorFlow',
+        demo: '#'
+      },
+      fullDescription: 'A sophisticated financial prediction system using LSTM neural networks to analyze historical stock data and predict future trends. The model incorporates multiple technical indicators and sentiment analysis for enhanced accuracy.',
+      challenges: ['Handling market volatility', 'Feature engineering for time series', 'Preventing overfitting'],
+      outcomes: ['Achieved 78% prediction accuracy', 'Reduced risk exposure by 35%', 'Generated consistent returns']
+    }
   ];
-  const [showAll, setShowAll] = useState(false);
-  const categories = ['all', 'ai', 'mobile', 'web'];
 
-  // Toggle category filter function
+  const [showAll, setShowAll] = useState(false);
+  const categories = ['all', 'ai', 'mobile', 'web', 'framework'];
+
   const toggleCategory = (category: string) => {
     if (category === 'all') {
       setFilters([]);
     } else {
-      setFilters(prev => 
-        prev.includes(category) 
+      setFilters(prev =>
+        prev.includes(category)
           ? prev.filter(cat => cat !== category)
           : [...prev, category]
       );
     }
   };
 
-  // Filter projects based on selected categories
-  const filteredProjects = filters.length === 0 
-    ? projects 
-    : projects.filter(project => filters.includes(project.category));
+  const filteredProjects = filters.length === 0
+    ? projects
+    : projects.filter(project => {
+        const projectCategories = project.categories || [];
+        return filters.some(filter => projectCategories.includes(filter));
+      });
 
-  const visibleProjects = showAll 
-    ? filteredProjects 
-    : filteredProjects.slice(0, 3); // Show only 6 projects initially
-
+  const visibleProjects = showAll
+    ? filteredProjects
+    : filteredProjects.slice(0, 3);
 
   const openProjectModal = (project: any) => {
     setSelectedProject(project);
@@ -216,7 +233,7 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {visibleProjects.map((project, index) => (
-              <Card
+            <Card
               key={project.id}
               className={`group hover-lift bg-gradient-card border-border/50 hover:border-primary/20 overflow-hidden ${
                 project.featured ? 'md:col-span-2 lg:col-span-1' : ''
@@ -354,7 +371,6 @@ const Projects = () => {
             </Button>
           </div>
         )}
-
 
         {/* Project Modal */}
         <ProjectModal
