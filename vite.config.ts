@@ -5,6 +5,8 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   base: "/Portfolio/", // 👈 update this if your repo name is different
+  // Use root base so the built app expects assets at the domain root.
+  // When using a custom domain (or User/Org pages) assets should be served from '/'.
   server: {
     host: "::",
     port: 8080,

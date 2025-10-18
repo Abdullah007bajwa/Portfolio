@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Not Found</title>
+    <meta http-equiv="refresh" content="0; url=/" />
+    <script>
+      // For GitHub Pages single-page-app fallback: if the user navigates to a routed path,
+      // redirect back to root where the SPA can handle the route.
+      // This prevents 404 white-screens for client-side routes.
+      (function () {
+        try {
+          var path = window.location.pathname;
+          // If path seems like an asset or root, don't redirect.
+          if (path === '/' || path.indexOf('/assets/') === 0) return;
+          window.location.replace('/');
+        } catch (e) {
+          // noop
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to the application...</p>
+  </body>
+</html>
