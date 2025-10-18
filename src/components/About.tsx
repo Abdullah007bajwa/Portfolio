@@ -18,54 +18,54 @@ const About = () => {
 
   const skills = [
     {
-      category: 'Languages & Fundamentals',
-      icon: Code2,
-      skills: ['Python', 'C++', 'SQL', 'HTML/CSS', 'JavaScript', 'TypeScript']
-    },
-    {
-      category: 'AI/ML & Data Science',
+      category: 'AI & Machine Learning',
       icon: Brain,
-      skills: ['TensorFlow', 'PyTorch', 'LSTM', 'NLP', 'Attention Mechanisms', 'Model Optimization']
+      skills: ['TensorFlow', 'PyTorch', 'LLMs', 'Transformers', 'LSTM', 'NLP', 'LangGraph', 'Agents']
     },
     {
       category: 'Computer Vision',
       icon: Eye,
-      skills: ['OpenCV', 'Facial Recognition', 'Object Detection', 'Image Classification']
+      skills: ['OpenCV', 'Object Detection', 'Pose Estimation', 'Image Classification', 'Real-time Processing']
     },
     {
-      category: 'Web Development',
+      category: 'Frontend',
       icon: Code2,
-      skills: ['React', 'Next.js', 'Node.js', 'Tailwind CSS', 'Framer Motion', 'Lucide-react']
+      skills: ['React 18', 'TypeScript', 'Tailwind CSS', 'Vite', 'Shadcn/UI', 'Performance Optimization']
     },
     {
-      category: 'Backend & APIs',
-      icon: Code2,
-      skills: ['Django', 'Flask', 'Firebase Functions', 'Nodemailer', 'REST APIs']
+      category: 'Backend & Databases',
+      icon: Briefcase,
+      skills: ['FastAPI', 'Node.js', 'Django', 'PostgreSQL', 'Redis', 'WebSocket', 'REST APIs']
+    },
+    {
+      category: 'DevOps & Cloud',
+      icon: Zap,
+      skills: ['Docker', 'Kubernetes', 'GitHub Actions', 'AWS S3', 'Azure', 'Production Deployment']
     },
     {
       category: 'Mobile Development',
       icon: Smartphone,
-      skills: ['Flutter', 'Android', 'Cross-platform']
+      skills: ['Flutter', 'React Native', 'Cross-platform', 'Responsive Design', 'iOS/Android']
     },
     {
-      category: 'Automation & IoT',
-      icon: Zap,
-      skills: ['IoT', 'Smart Systems', 'Voice Control']
+      category: 'Languages',
+      icon: Code2,
+      skills: ['Python', 'TypeScript', 'JavaScript', 'C++', 'SQL', 'HTML/CSS']
     }
   ];
 
   const experience = [
     {
-      title: 'AI Specialist',
-      company: 'Freelance',
+      title: 'Full-Stack AI Engineer',
+      company: 'Freelance & Open Source',
       period: '2022 – Present',
-      description: 'Crafted AI solutions for clients, including computer vision, NLP, and intelligent automation systems. Focused on real-world impact through scalable and optimized models.'
+      description: 'Architected and deployed 10+ production systems: VertexHub (100+ concurrent users), Inceptra framework, computer vision models (95% accuracy), stock predictors (78% accuracy). Specialized in real-time systems, scalability, and enterprise-grade deployments.'
     },
     {
-      title: 'Full-Stack Developer',
-      company: 'Independent & Collaborative Projects',
+      title: 'AI/ML Specialist',
+      company: 'Independent Innovation',
       period: '2021 – Present',
-      description: 'Designed and developed web, mobile, and IoT apps using Node.js, React, Flutter, and Django. Specialized in integrating AI to enhance user experience and system intelligence.'
+      description: 'Pioneered intelligent systems: LLM agents, autonomous workflows, video analysis pipelines. Delivered end-to-end solutions from model training to production deployment with focus on optimization and performance.'
     }
   ];
 
@@ -76,7 +76,7 @@ const About = () => {
       institution: 'University of Management and Technology (UMT)',
       institutionLink: 'https://www.umt.edu.pk/',
       period: '2021 – 2025',
-      description: 'Focused on AI, machine learning, and intelligent systems development.'
+      description: 'Specialized in AI, machine learning, deep learning, and intelligent systems. Completed coursework in neural networks, NLP, computer vision, and reinforcement learning.'
     }
   ];
 
@@ -90,10 +90,9 @@ const About = () => {
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Hi! I'm <strong className="text-primary">Abdullah Bajwa</strong>, an AI Specialist and Software Developer 
-            based in Lahore, Pakistan. With over 2 years of experience in computer vision, machine learning, 
-            and automation, I specialize in building AI-powered solutions that transform complex challenges 
-            into streamlined processes.
+            I'm <strong className="text-primary">Abdullah Bajwa</strong>, an AI Specialist & Full-Stack Developer 
+            from Lahore, Pakistan. Passionate about building intelligent systems that solve real-world problems. 
+            Expertise in AI/ML, computer vision, enterprise web platforms, and scalable backend architectures.
           </p>
         </div>
 
