@@ -6,45 +6,126 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
 # Dependency directories
 node_modules/
+.pnp
+.pnp.js
 
-# Build output
+# Next.js build & cache (CRITICAL - prevent huge pushes)
+.next/
+out/
+.vercel/
+.netlify/
+
+# Build outputs
 dist/
 dist-ssr/
+build/
 .vite/
 *.tsbuildinfo
 
-# Public build artifacts
+# Development
+.cache/
+.turbo/
+turbo.json.local
+
+# Public build artifacts (keep only necessary assets)
 public/*.pdf
 public/*.svg
 public/*.txt
+public/og-*.png
 
 # IDE and editor folders
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
+.cursor/
+*.code-workspace
+*.swp
+*.swo
+*~
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 
-# OS generated files
+# Editor backups
+*.bak
+*.swp
+*.swo
+*~
+.emacs.d/
+
+# Platform specific
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 .Spotlight-V100
 .Trashes
 
-# Misc
-*.local
-.env*
+# Environment & secrets (CRITICAL - never commit secrets)
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+!.env.example.local
+
+# Database & cache files
+*.db
+*.sqlite
+*.sqlite3
+.cache/
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+._.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build artifacts that should never be committed
+.anima/
+.next/cache/
+.next/static/
+.next/server/
+
+# Yarn & dependency managers
+yarn.lock
+pnpm-lock.yaml.bak
+package-lock.json.bak
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc generated files
+.storybook/
+sitemap.xml
+robots.txt.bak# Cache directories
 .cache/
 .parcel-cache/
 .eslintcache
 .npm/
 .yarn/
 .pnp.*
+.turbo/
+
+# Testing
+*.test.js
+__snapshots__/
+coverage/
+
+# Editor backups
+*.swp
+*.swo
+*~
+.#*
+
+# Anima & design tool artifacts
+.anima/
+
+# production lock files (commit lockfile to repo)
+# pnpm-lock.yaml is NOT in .gitignore - it should be committed
