@@ -23,6 +23,7 @@ out/
 dist/
 dist-ssr/
 build/
+out/
 .vite/
 *.tsbuildinfo
 
