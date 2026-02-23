@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { BackgroundBlob } from "@/components/BackgroundBlob";
+import { GradientCharReveal } from "@/components/ui/GradientCharReveal";
 
 const experiences = [
   {
@@ -57,57 +58,74 @@ export function WorkExperience() {
           className="mb-16 text-center"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            My <span className="bg-gradient-to-r from-[#b794f6] to-[#f472b6] bg-clip-text text-transparent">work</span> experience
+            My <GradientCharReveal isInView={isInView} delay={0.15}>work</GradientCharReveal> experience
           </h2>
         </motion.div>
 
-        {/* Experience Cards Grid - 2x2 Rectangle Layout */}
+        {/* Experience Cards Grid - 2x2 with alternating entrance */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.12,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              whileHover={{
-                y: -4,
-                transition: { duration: 0.3 },
-              }}
-              className="group rounded-3xl border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/[0.12]"
-              style={{
-                background: "linear-gradient(103.397deg, rgb(4, 7, 29) 0%, rgb(12, 14, 35) 100%)",
-              }}
-            >
-              {/* Horizontal Rectangle Layout */}
-              <div className="flex flex-col sm:flex-row items-center">
-                {/* Image/Icon Container */}
-                <div className="relative w-full sm:w-40 h-32 sm:h-full flex items-center justify-center bg-white/[0.02] border-b sm:border-b-0 sm:border-r border-white/[0.08] flex-shrink-0">
-                  <img
-                    src={exp.image}
-                    alt={exp.role}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
-                  />
-                </div>
+          {experiences.map((exp, index) => {
+            // Left column (0, 2) slides from left; Right column (1, 3) slides from right
+            const isLeftColumn = index % 2 === 0;
+            return (
+              <motion.div
+                key={exp.id}
+                initial={{
+                  opacity: 0,
+                  x: isLeftColumn ? -60 : 60,
+                  y: 20,
+                }}
+                animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+                transition={{
+                  duration: 0.7,
+                  delay: index * 0.12,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                whileHover={{
+                  y: -6,
+                  transition: { duration: 0.3 },
+                }}
+                className="group animated-border-card rounded-3xl border border-white/[0.08] overflow-hidden hover:border-transparent"
+                style={{
+                  background: "linear-gradient(103.397deg, rgb(4, 7, 29) 0%, rgb(12, 14, 35) 100%)",
+                }}
+              >
+                {/* Horizontal Rectangle Layout */}
+                <div className="flex flex-col sm:flex-row items-center">
+                  {/* Image/Icon Container */}
+                  <div className="relative w-full sm:w-40 h-32 sm:h-full flex items-center justify-center bg-white/[0.02] border-b sm:border-b-0 sm:border-r border-white/[0.08] flex-shrink-0">
+                    <motion.img
+                      src={exp.image}
+                      alt={exp.role}
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+                      animate={{
+                        scale: [1, 1.06, 1],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.5,
+                      }}
+                    />
+                  </div>
 
-                {/* Content Container */}
-                <div className="p-6 flex-1">
-                  {/* Role Title */}
-                  <h3 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-white/80 transition-colors line-clamp-2">
-                    {exp.role}
-                  </h3>
+                  {/* Content Container */}
+                  <div className="p-6 flex-1">
+                    {/* Role Title */}
+                    <h3 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-[#b794f6] transition-colors duration-300 line-clamp-2">
+                      {exp.role}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="text-sm text-[#c0c2d3] leading-relaxed line-clamp-2">
-                    {exp.description}
-                  </p>
+                    {/* Description */}
+                    <p className="text-sm text-[#c0c2d3] leading-relaxed line-clamp-2">
+                      {exp.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

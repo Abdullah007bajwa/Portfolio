@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TestimonialCard } from "@/components/ui/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
+import { GradientCharReveal } from "@/components/ui/GradientCharReveal";
 import { BackgroundBlob } from "@/components/BackgroundBlob";
 
 export function Testimonials() {
@@ -12,6 +13,7 @@ export function Testimonials() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const checkScroll = useCallback(() => {
@@ -68,7 +70,7 @@ export function Testimonials() {
             What others say
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Kind words from <span className="bg-gradient-to-r from-[#b794f6] to-[#f472b6] bg-clip-text text-transparent">satisfied</span> clients
+            Kind words from <GradientCharReveal isInView={isInView} delay={0.15}>satisfied</GradientCharReveal> clients
           </h2>
         </motion.div>
 
@@ -100,6 +102,7 @@ export function Testimonials() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4 px-2"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
             {testimonials.map((t, i) => (
               <motion.div
@@ -107,7 +110,12 @@ export function Testimonials() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 * i }}
-                className="flex-shrink-0 w-[340px] md:w-[400px] snap-start"
+                className="flex-shrink-0 w-[340px] md:w-[400px] snap-start transition-all duration-300"
+                onMouseEnter={() => setHoveredIndex(i)}
+                style={{
+                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.5 : 1,
+                  filter: hoveredIndex !== null && hoveredIndex !== i ? "blur(1px)" : "none",
+                }}
               >
                 <TestimonialCard testimonial={t} />
               </motion.div>

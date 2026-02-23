@@ -190,6 +190,95 @@
   animation: approach-orbit 26s linear infinite reverse;
 }
 
+/* Enhancement #8: Hero CTA shine sweep */
+@keyframes shine-sweep {
+  0% { left: -100%; }
+  15% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.14) 50%,
+    rgba(255, 255, 255, 0.08) 55%,
+    transparent 100%
+  );
+  animation: shine-sweep 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Enhancement #4: Animated gradient border for Work Experience cards */
+@keyframes border-rotate {
+  0% { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.animated-border-card {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animated-border-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 40%,
+    #b794f6 50%,
+    #f472b6 60%,
+    transparent 70%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.animated-border-card:hover::before {
+  opacity: 1;
+  animation: border-rotate 3s linear infinite;
+}
+
+/* Enhancement #9: Tech stack marquee hover pause */
+.marquee-container:hover .stack-scroll-up,
+.marquee-container:hover .stack-scroll-down {
+  animation-play-state: paused;
+}
+
+/* Enhancement #11: Section dividers that grow from center */
+@keyframes divider-grow {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
 @layer utilities {
   @media (prefers-reduced-motion: reduce) {
     *,

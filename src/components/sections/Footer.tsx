@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Github, Linkedin, Instagram, Youtube, Twitter } from "lucide-react";
 
 export function Footer() {
@@ -16,9 +19,9 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <p className="text-[#c0c2d3] text-sm">
               Copyright ©{new Date().getFullYear()}{" "}
-              <a 
-                href="http://getneuralnest.com/" 
-                target="_blank" 
+              <a
+                href="http://getneuralnest.com/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#b794f6] hover:text-[#f472b6] transition-colors"
               >
@@ -27,19 +30,26 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Social Icons */}
+          {/* Social Icons with gradient hover */}
           <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
-              <a
+              <motion.a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="w-10 h-10 rounded-full border border-white/[0.06] hover:border-white/[0.12] flex items-center justify-center transition-all hover:scale-110"
+                className="group relative w-10 h-10 rounded-full border border-white/[0.06] flex items-center justify-center transition-all duration-300 hover:border-[#b794f6]/40"
+                whileHover={{
+                  scale: 1.15,
+                  transition: { type: "spring", stiffness: 400, damping: 15 },
+                }}
+                whileTap={{ scale: 0.95 }}
               >
-                <social.icon className="w-5 h-5 text-[#c0c2d3]" />
-              </a>
+                {/* Glow effect behind the icon */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#b794f6]/0 to-[#f472b6]/0 group-hover:from-[#b794f6]/20 group-hover:to-[#f472b6]/20 transition-all duration-300 blur-sm" />
+                <social.icon className="relative z-10 w-5 h-5 text-[#c0c2d3] group-hover:text-[#b794f6] transition-colors duration-300" />
+              </motion.a>
             ))}
           </div>
         </div>

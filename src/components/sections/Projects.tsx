@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { projects } from "@/data/projects";
+import { GradientCharReveal } from "@/components/ui/GradientCharReveal";
 import { BackgroundBlob } from "@/components/BackgroundBlob";
 
 const containerVariants = {
@@ -63,7 +64,7 @@ export function Projects() {
             Portfolio
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            A <span className="bg-gradient-to-r from-[#b794f6] to-[#f472b6] bg-clip-text text-transparent">small</span> selection of recent <span className="bg-gradient-to-r from-[#b794f6] to-[#f472b6] bg-clip-text text-transparent">projects</span>
+            A <GradientCharReveal isInView={isInView} delay={0.15}>small</GradientCharReveal> selection of recent <GradientCharReveal isInView={isInView} delay={0.3}>projects</GradientCharReveal>
           </h2>
         </motion.div>
 

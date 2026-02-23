@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useCallback } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import StackIcon from "tech-stack-icons";
@@ -41,6 +41,7 @@ const getIconName = (tag: string): string => {
 
 export function ProjectCard({ project }: { project: Project }) {
   const ref = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -49,82 +50,108 @@ export function ProjectCard({ project }: { project: Project }) {
 
   const imageY = useTransform(scrollYProgress, [0, 1], [20, -20]);
 
+  // 3D tilt state
+  const [tiltValues, setTiltValues] = useState({ rotateX: 0, rotateY: 0 });
+  const springConfig = { stiffness: 300, damping: 25, mass: 0.5 };
+  const rotateX = useSpring(0, springConfig);
+  const rotateY = useSpring(0, springConfig);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!tiltRef.current) return;
+    const rect = tiltRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const mouseX = e.clientX - centerX;
+    const mouseY = e.clientY - centerY;
+    // Normalize to ±1 range and limit to ±8 degrees
+    const tiltX = -(mouseY / (rect.height / 2)) * 8;
+    const tiltY = (mouseX / (rect.width / 2)) * 8;
+    rotateX.set(tiltX);
+    rotateY.set(tiltY);
+  }, [rotateX, rotateY]);
+
+  const handleMouseLeave = useCallback(() => {
+    rotateX.set(0);
+    rotateY.set(0);
+  }, [rotateX, rotateY]);
+
   return (
     <GlowCard className="group relative overflow-hidden rounded-3xl bg-[#1a1f2e] shadow-lg border border-white/[0.06] cursor-default">
       <motion.div
-        ref={ref}
-        whileHover="hover"
-        variants={{
-          hover: {
-            y: -12,
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
-            transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
-          },
+        ref={tiltRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          position: "relative",
+          rotateX,
+          rotateY,
+          transformPerspective: 1200,
+          transformStyle: "preserve-3d",
         }}
-        style={{ position: "relative" }}
+        whileHover="hover"
         className="h-full"
       >
-      <div className="relative aspect-video overflow-hidden bg-[#0f1419]">
-        <motion.div
-          style={{ y: imageY }}
-          className="relative w-full h-full"
-          variants={{
-            hover: {
-              scale: 1.05,
-              transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
-            },
-          }}
-        >
-          <Image
-            src={project.image}
-            alt={project.altText || project.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            unoptimized={project.image.startsWith("/images/") && !project.image.endsWith(".png")}
-          />
-        </motion.div>
-      </div>
-
-      <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-[#b794f6] transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-[#8892a6] mb-6 line-clamp-2">{project.description}</p>
-
-        {project.tags && project.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tags.slice(0, 4).map((tag) => (
-              <span
-                key={tag}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-[#0f1419] border border-white/10 text-white rounded-full hover:border-white/20 transition-colors"
-              >
-                <StackIcon name={getIconName(tag)} className="w-4 h-4" />
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <motion.a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-[#b794f6] font-semibold group/btn hover:text-[#f472b6] transition-colors"
-          variants={{
-            hover: { transition: { staggerChildren: 0.05 } },
-          }}
-        >
-          Check Live Site
-          <motion.span
+        <div ref={ref} className="relative aspect-video overflow-hidden bg-[#0f1419]">
+          <motion.div
+            style={{ y: imageY }}
+            className="relative w-full h-full"
             variants={{
-              hover: { x: 4, transition: { duration: 0.2 } },
+              hover: {
+                scale: 1.05,
+                transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+              },
             }}
           >
-            <ArrowUpRight className="w-5 h-5" />
-          </motion.span>
-        </motion.a>
-      </div>
+            <Image
+              src={project.image}
+              alt={project.altText || project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              unoptimized={project.image.startsWith("/images/") && !project.image.endsWith(".png")}
+            />
+          </motion.div>
+        </div>
+
+        <div className="p-6">
+          <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-[#b794f6] transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-[#8892a6] mb-6 line-clamp-2">{project.description}</p>
+
+          {project.tags && project.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {project.tags.slice(0, 4).map((tag) => (
+                <span
+                  key={tag}
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-[#0f1419] border border-white/10 text-white rounded-full hover:border-white/20 transition-colors"
+                >
+                  <StackIcon name={getIconName(tag)} className="w-4 h-4" />
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#b794f6] font-semibold group/btn hover:text-[#f472b6] transition-colors"
+            variants={{
+              hover: { transition: { staggerChildren: 0.05 } },
+            }}
+          >
+            Check Live Site
+            <motion.span
+              variants={{
+                hover: { x: 4, transition: { duration: 0.2 } },
+              }}
+            >
+              <ArrowUpRight className="w-5 h-5" />
+            </motion.span>
+          </motion.a>
+        </div>
       </motion.div>
     </GlowCard>
   );

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { BackgroundBlob } from "@/components/BackgroundBlob";
+import { GradientCharReveal } from "@/components/ui/GradientCharReveal";
 
 const phases = [
   {
@@ -136,7 +137,7 @@ function PhaseCard({ phase, index, isInView }: { phase: typeof phases[0]; index:
               background: "linear-gradient(135deg, rgba(16, 23, 39, 1) 0%, rgba(8, 11, 25, 1) 100%)",
             }}
           >
-            <motion.div 
+            <motion.div
               className="relative z-50 flex flex-col items-center text-center space-y-4"
               initial={{ opacity: 0, y: 10 }}
               animate={isFlipped ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
@@ -183,7 +184,7 @@ export function MyApproach() {
           className="mb-16 text-center"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            <span className="bg-gradient-to-r from-[#b794f6] to-[#f472b6] bg-clip-text text-transparent">My</span> approach
+            <GradientCharReveal isInView={isInView} delay={0.15}>My</GradientCharReveal> approach
           </h2>
         </motion.div>
 

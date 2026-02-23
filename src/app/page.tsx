@@ -9,6 +9,7 @@ import { WorkExperience } from "@/components/sections/WorkExperience";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 import { LaserFlowBackground } from "@/components/LaserFlowBackground";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export default function Home() {
   return (
@@ -17,12 +18,19 @@ export default function Home() {
       <Header />
       <main className="relative">
         <Hero />
+        <SectionDivider />
         <About />
+        <SectionDivider />
         <CurrentWork />
+        <SectionDivider />
         <Projects />
+        <SectionDivider />
         <Testimonials />
+        <SectionDivider />
         <WorkExperience />
+        <SectionDivider />
         <MyApproach />
+        <SectionDivider />
         <Contact />
       </main>
       <Footer />

@@ -144,8 +144,8 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={isLoaded ? { opacity: 1, y: 0 } : {}}
               transition={{
-                duration: 0.6,
-                delay: 0.15 + i * 0.08,
+                duration: 0.5,
+                delay: 0.4 + i * 0.06,
                 ease: [0.33, 0.66, 0.66, 1],
               }}
               className="text-xs font-semibold tracking-[0.2em] uppercase text-[#8892a6]"
@@ -161,8 +161,8 @@ export function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{
-              duration: 1,
-              delay: 0.3,
+              duration: 0.9,
+              delay: 0.7,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
             className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] mb-2"
@@ -175,8 +175,8 @@ export function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{
-              duration: 1,
-              delay: 0.5,
+              duration: 0.9,
+              delay: 0.85,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
             className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em]"
@@ -190,7 +190,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 1.1, ease: "easeOut" }}
           className="text-lg md:text-xl text-[#8892a6] mb-10 max-w-2xl mx-auto"
         >
           Hi! I'm Abdullah, a passionate FULL Stack Developer and AI engineer based in The Pakistan.
@@ -201,8 +201,8 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
           transition={{
-            duration: 0.8,
-            delay: 0.8,
+            duration: 0.7,
+            delay: 1.4,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
           whileHover={{
@@ -211,7 +211,7 @@ export function Hero() {
           }}
           whileTap={{ scale: 0.97 }}
           onClick={scrollToProjects}
-          className="group inline-flex items-center gap-2 px-8 py-4 bg-[#1a2332] text-white font-semibold text-lg rounded-full border border-white/[0.06] hover:bg-[#222d3f] hover:border-white/10 transition-all"
+          className="group inline-flex items-center gap-2 px-8 py-4 bg-[#1a2332] text-white font-semibold text-lg rounded-full border border-white/[0.06] hover:bg-[#222d3f] hover:border-white/10 transition-all btn-shine"
         >
           See my work
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" />

@@ -7,6 +7,7 @@ import StackIcon, { IconName } from "tech-stack-icons";
 import { DroneCanvas } from "@/components/3d/DroneCanvas";
 import { FFMap } from "@/components/ui/FFMap";
 import { IceButton } from "@/components/ui/IceButton";
+import { GradientCharReveal } from "@/components/ui/GradientCharReveal";
 import { BackgroundBlob } from "@/components/BackgroundBlob";
 
 const techLogoColumns = {
@@ -56,7 +57,7 @@ export function About() {
             Get to know me
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            <span className="bg-gradient-to-r from-[#b794f6] to-[#f472b6] bg-clip-text text-transparent">About</span> me
+            <GradientCharReveal isInView={isInView} delay={0.2}>About</GradientCharReveal> me
           </h2>
         </motion.div>
 
@@ -117,7 +118,7 @@ export function About() {
                   Flexible with time zones, always responsive
                 </h3>
               </div>
-              
+
               {/* FF-Map Component */}
               <div className="space-y-4 mt-auto">
                 <div className="w-full h-24 md:h-28 rounded-xl overflow-hidden bg-gradient-to-br from-[#0f1419] to-[#0a0f1e] border border-white/[0.06]">
@@ -135,7 +136,7 @@ export function About() {
               <div className="relative h-[260px] sm:h-[300px] lg:flex-1 lg:min-h-0 overflow-hidden rounded-2xl bg-[#0f1419]">
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.06),_transparent_55%)]" />
-                
+
                 {/* Layout: Text on left (40%), Tech stack on right (60%) */}
                 <div className="relative h-full flex items-center">
                   {/* Text on left side */}
@@ -147,9 +148,9 @@ export function About() {
                       My tech stack
                     </h3>
                   </div>
-                  
+
                   {/* Tech stack on right side (60%) with scrolling */}
-                  <div className="absolute right-0 top-0 bottom-0 w-[60%] overflow-hidden">
+                  <div className="absolute right-0 top-0 bottom-0 w-[60%] overflow-hidden marquee-container">
                     <div className="h-full grid grid-cols-2 gap-2 p-2">
                       <div className="h-full overflow-hidden">
                         <div className="flex flex-col gap-3 stack-scroll-up">
